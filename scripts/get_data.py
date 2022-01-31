@@ -1,10 +1,11 @@
 from bs4 import BeautifulSoup
 from datetime import date
 from dotenv import dotenv_values
+import json
 import requests
 
-def get_leaderboard(s):
-    r = s.get('https://www.nytimes.com/puzzles/leaderboards')
+def get_leaderboard(session):
+    r = session.get('https://www.nytimes.com/puzzles/leaderboards')
 
     soup = BeautifulSoup(r.content, 'html.parser')
 
@@ -21,10 +22,11 @@ def get_leaderboard(s):
 
     return leaderboard
 
+def save_leaderboard(leaderboard):
+    pass
+
 if __name__ == '__main__':
     config = dotenv_values('.env')
-
-    assert 'AUTH_COOKIE' in config, 'No auth cookie'
     cookies = {
         'NYT-S': config['AUTH_COOKIE']
     }
@@ -32,4 +34,5 @@ if __name__ == '__main__':
     s = requests.Session()
     s.cookies.update(cookies)
 
-    
+    leaderboard = get_leaderboard(s)
+    print(leaderboard)
