@@ -43,7 +43,7 @@ def save_leaderboard(session, leaderboard, token):
     }
 
     repo = 'justinkhado/nyt-crossword-data'
-    path = f"data/{leaderboard['date'].split('-')[1]}/{leaderboard['date']}.json"
+    path = f"data/{leaderboard['date'].split('-')[0]}/{leaderboard['date'].split('-')[1]}/{leaderboard['date']}.json"
     url = f'https://api.github.com/repos/{repo}/contents/{path}'
     sha = _get_sha(session, url)
 
@@ -51,7 +51,7 @@ def save_leaderboard(session, leaderboard, token):
         data = {**data, 'sha': sha}
         
     r = session.put(url, data=json.dumps(data), headers=headers)
-
+    
 
 if __name__ == '__main__':
     config = dotenv_values('.env')
