@@ -5,6 +5,12 @@ import base64
 import json
 import requests
 
+def _get_sha(session, url):
+    r = session.get(url)
+    if r.status_code == 404:
+        return None
+    return r.json()['sha']
+
 def get_leaderboard(session):
     r = session.get('https://www.nytimes.com/puzzles/leaderboards')
 
@@ -24,7 +30,7 @@ def get_leaderboard(session):
 
     return leaderboard
 
-def save_leaderboard(leaderboard, token):
+def save_leaderboard(session, leaderboard, token):   
     headers = {
         'Authorization': f'Token {token}',
         'Accept': 'application/vnd.github.v3+json'
@@ -32,13 +38,19 @@ def save_leaderboard(leaderboard, token):
 
     data = {
         'message': f"{leaderboard['date']}",
-        'content': base64.b64encode(json.dumps(leaderboard).encode('utf-8')).decode()
+        'content': base64.b64encode(json.dumps(leaderboard).encode('utf-8')).decode(),
+        'branch': 'data'
     }
 
-    repo = 'justinkhado/nyt-leaderboard-data'
-    path = f"data/{leaderboard['date']}.json"
-    r = requests.put(f'https://api.github.com/repos/{repo}/contents/{path}', data=json.dumps(data), headers=headers)
-    print(r.text)
+    repo = 'justinkhado/nyt-crossword-data'
+    path = f"data/{leaderboard['date'].split('-')[1]}/{leaderboard['date']}.json"
+    url = f'https://api.github.com/repos/{repo}/contents/{path}'
+    sha = _get_sha(session, url)
+
+    if sha:
+        data = {**data, 'sha': sha}
+        
+    r = session.put(url, data=json.dumps(data), headers=headers)
 
 
 if __name__ == '__main__':
@@ -51,5 +63,5 @@ if __name__ == '__main__':
     s.cookies.update(cookies)
 
     leaderboard = get_leaderboard(s)
-    save_leaderboard(leaderboard, config['GH_TOKEN'])
+    save_leaderboard(s, leaderboard, config['GH_TOKEN'])
     
