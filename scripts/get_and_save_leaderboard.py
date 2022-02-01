@@ -1,9 +1,9 @@
 from bs4 import BeautifulSoup
-from datetime import date
-from dotenv import dotenv_values
+from datetime import datetime
 import base64
 import json
 import requests
+import os
 
 def _get_sha(session, url):
     r = session.get(url)
@@ -13,13 +13,11 @@ def _get_sha(session, url):
 
 def get_leaderboard(session):
     r = session.get('https://www.nytimes.com/puzzles/leaderboards')
-
     soup = BeautifulSoup(r.content, 'html.parser')
 
-    results = soup.find_all(class_='lbd-score')
-
-    today = date.today().strftime('%Y-%m-%d')
+    today = soup.find(class_='lbd-type__date').text
     leaderboard = {'date': today, 'scores': []}
+    results = soup.find_all(class_='lbd-score')
     for result in results:
         person = {}
         person['rank'] = result.find(class_='lbd-score__rank').text
@@ -42,11 +40,12 @@ def save_leaderboard(session, leaderboard, token):
         'branch': 'master'
     }
 
+    today = datetime.strptime(leaderboard['date'], '%A, %B %d, %Y')
+    path = f"data/{today.year}/{today.month}/{datetime.strftime(today, '%Y-%m-%d')}.json"
     repo = 'justinkhado/nyt-crossword-data'
-    path = f"data/{leaderboard['date'].split('-')[0]}/{leaderboard['date'].split('-')[1]}/{leaderboard['date']}.json"
     url = f'https://api.github.com/repos/{repo}/contents/{path}'
-    sha = _get_sha(session, url)
 
+    sha = _get_sha(session, url)
     if sha:
         data = {**data, 'sha': sha}
         
@@ -54,14 +53,13 @@ def save_leaderboard(session, leaderboard, token):
     
 
 if __name__ == '__main__':
-    config = dotenv_values('.env')
     cookies = {
-        'NYT-S': config['AUTH_COOKIE']
+        'NYT-S': os.environ['AUTH_COOKIE']
     }
     
     s = requests.Session()
     s.cookies.update(cookies)
 
     leaderboard = get_leaderboard(s)
-    save_leaderboard(s, leaderboard, config['GH_TOKEN'])
+    save_leaderboard(s, leaderboard, os.environ['GH_TOKEN'])
     
