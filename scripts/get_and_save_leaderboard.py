@@ -36,7 +36,7 @@ def save_leaderboard(session, leaderboard, token):
 
     data = {
         'message': f"{leaderboard['date']}",
-        'content': base64.b64encode(json.dumps(leaderboard).encode('utf-8')).decode(),
+        'content': base64.b64encode(json.dumps(leaderboard, indent=4).encode('utf-8')).decode(),
         'branch': 'master'
     }
 
