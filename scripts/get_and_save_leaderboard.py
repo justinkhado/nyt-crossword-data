@@ -41,7 +41,7 @@ def save_leaderboard(session, leaderboard, token):
     }
 
     today = datetime.strptime(leaderboard['date'], '%A, %B %d, %Y')
-    path = f"data/{today.year}/{today.month}/{datetime.strftime(today, '%Y-%m-%d')}.json"
+    path = f"data/{today.year}/{datetime.strftime(today, '%B')}/{datetime.strftime(today, '%Y-%m-%d')}.json"
     repo = 'justinkhado/nyt-crossword-data'
     url = f'https://api.github.com/repos/{repo}/contents/{path}'
 
