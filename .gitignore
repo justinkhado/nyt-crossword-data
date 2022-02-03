@@ -1,2 +1,4 @@
 .env
 *.rest
+.gitignore
+test.py

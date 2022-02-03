@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from datetime import datetime
+from datetime import date, datetime
 import base64
 import json
 import requests
@@ -10,6 +10,32 @@ def _get_sha(session, url):
     if r.status_code == 404:
         return None
     return r.json()['sha']
+
+def save_leaderboard_raw(session, token):
+    r = session.get('https://www.nytimes.com/puzzles/leaderboards')
+    leaderboard_raw = r.content
+    today = date.today().strftime('%Y-%m-%d')
+
+    headers = {
+        'Authorization': f'Token {token}',
+        'Accept': 'application/vnd.github.v3+json'
+    }
+
+    data = {
+        'message': f"{today}",
+        'content': leaderboard_raw,
+        'branch': 'raws'
+    }
+
+    repo = 'justinkhado/nyt-crossword-data'
+    path = f"raw_data/{today}.json"
+    url = f"https://api.github.com/repos/{repo}/contents/{path}"
+
+    sha = _get_sha(session, url)
+    if sha:
+        data = {**data, 'sha': sha}
+
+    r = session.put(url, data=data, headers=headers)
 
 def get_leaderboard(session):
     r = session.get('https://www.nytimes.com/puzzles/leaderboards')
@@ -60,6 +86,7 @@ if __name__ == '__main__':
     s = requests.Session()
     s.cookies.update(cookies)
 
-    leaderboard = get_leaderboard(s)
-    save_leaderboard(s, leaderboard, os.environ['GH_TOKEN'])
+    #leaderboard = get_leaderboard(s)
+    #save_leaderboard(s, leaderboard, os.environ['GH_TOKEN'])
+    save_leaderboard_raw(s, os.environ['GH_TOKEN'])
     
