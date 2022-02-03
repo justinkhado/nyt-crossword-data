@@ -73,7 +73,7 @@ def save_leaderboard(session, leaderboard, token):
     }
 
     today = datetime.strptime(leaderboard['date'], '%A, %B %d, %Y')
-    path = f"data/{today.year}/{datetime.strftime(today, '%B')}/{datetime.strftime(today, '%Y-%m-%d')}.json"
+    path = f"data/{today.year}/{datetime.strftime(today, '%m. %B')}/{datetime.strftime(today, '%Y-%m-%d')}.json"
     url = f'https://api.github.com/repos/{REPO}/contents/{path}'
 
     sha = _get_sha(session, url)
