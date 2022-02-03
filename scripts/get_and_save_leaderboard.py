@@ -1,9 +1,12 @@
 from bs4 import BeautifulSoup
 from datetime import date, datetime
+from zoneinfo import ZoneInfo
 import base64
 import json
 import requests
 import os
+
+REPO = 'justinkhado/nyt-crossword-data'
 
 def _get_sha(session, url):
     r = session.get(url)
@@ -13,8 +16,8 @@ def _get_sha(session, url):
 
 def save_leaderboard_raw(session, token):
     r = session.get('https://www.nytimes.com/puzzles/leaderboards')
-    leaderboard_raw = r.content
-    today = date.today().strftime('%Y-%m-%d')
+    # get today's date in New York time
+    today = datetime.strftime(datetime.now(ZoneInfo('America/New_York')), '%Y-%m-%d')
 
     headers = {
         'Authorization': f'Token {token}',
@@ -23,22 +26,25 @@ def save_leaderboard_raw(session, token):
 
     data = {
         'message': f"{today}",
-        'content': leaderboard_raw,
+        'content': base64.b64encode(r.content).decode(),
         'branch': 'raws'
     }
 
     repo = 'justinkhado/nyt-crossword-data'
-    path = f"raw_data/{today}.json"
+    path = f"raw_data/{today}.txt"
     url = f"https://api.github.com/repos/{repo}/contents/{path}"
 
     sha = _get_sha(session, url)
     if sha:
         data = {**data, 'sha': sha}
 
-    r = session.put(url, data=data, headers=headers)
+    r = session.put(url, data=json.dumps(data), headers=headers)
 
-def get_leaderboard(session):
-    r = session.get('https://www.nytimes.com/puzzles/leaderboards')
+    return today
+
+def get_leaderboard(session, day):
+    branch = 'master'
+    r = session.get(f'https://raw.githubusercontent.com/{REPO}/{branch}/raw_data/{day}.txt')
     soup = BeautifulSoup(r.content, 'html.parser')
 
     today = soup.find(class_='lbd-type__date').text
@@ -68,15 +74,13 @@ def save_leaderboard(session, leaderboard, token):
 
     today = datetime.strptime(leaderboard['date'], '%A, %B %d, %Y')
     path = f"data/{today.year}/{datetime.strftime(today, '%B')}/{datetime.strftime(today, '%Y-%m-%d')}.json"
-    repo = 'justinkhado/nyt-crossword-data'
-    url = f'https://api.github.com/repos/{repo}/contents/{path}'
+    url = f'https://api.github.com/repos/{REPO}/contents/{path}'
 
     sha = _get_sha(session, url)
     if sha:
         data = {**data, 'sha': sha}
         
     r = session.put(url, data=json.dumps(data), headers=headers)
-    
 
 if __name__ == '__main__':
     cookies = {
@@ -86,7 +90,7 @@ if __name__ == '__main__':
     s = requests.Session()
     s.cookies.update(cookies)
 
-    #leaderboard = get_leaderboard(s)
-    #save_leaderboard(s, leaderboard, os.environ['GH_TOKEN'])
-    save_leaderboard_raw(s, os.environ['GH_TOKEN'])
+    today = save_leaderboard_raw(s, os.environ['GH_TOKEN'])
+    leaderboard = get_leaderboard(s, today)
+    save_leaderboard(s, leaderboard, os.environ['GH_TOKEN'])
     
