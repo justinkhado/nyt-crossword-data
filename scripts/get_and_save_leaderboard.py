@@ -27,7 +27,7 @@ def save_leaderboard_raw(session, token):
     data = {
         'message': f"{today}",
         'content': base64.b64encode(r.content).decode(),
-        'branch': 'raws'
+        'branch': 'master'
     }
 
     repo = 'justinkhado/nyt-crossword-data'
@@ -39,6 +39,7 @@ def save_leaderboard_raw(session, token):
         data = {**data, 'sha': sha}
 
     r = session.put(url, data=json.dumps(data), headers=headers)
+    print(r.status_code)
 
     return today
 
@@ -81,6 +82,7 @@ def save_leaderboard(session, leaderboard, token):
         data = {**data, 'sha': sha}
         
     r = session.put(url, data=json.dumps(data), headers=headers)
+    print(r.status_code)
 
 if __name__ == '__main__':
     cookies = {
