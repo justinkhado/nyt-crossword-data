@@ -52,9 +52,12 @@ def get_leaderboard(session, day):
     leaderboard = {'date': today, 'scores': []}
     results = soup.find_all(class_='lbd-score')
     for result in results:
+        if result.find(class_='lbd-score__link'):
+            continue
+
         person = {}
         person['rank'] = result.find(class_='lbd-score__rank').text
-        person['name'] = result.find(class_='lbd-score__name').text.replace('(you)', '')
+        person['name'] = result.find(class_='lbd-score__name').text.replace('(you)', '')        
         person['time'] = result.find(class_='lbd-score__time').text
         if person['time'] != '--':
             leaderboard['scores'].append(person)
