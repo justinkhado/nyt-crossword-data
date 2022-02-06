@@ -3,28 +3,38 @@
     "scores": [
         {
             "rank": "1",
+            "name": "charlottehtc ",
+            "time": "0:27"
+        },
+        {
+            "rank": "2",
             "name": "Jacqui ",
             "time": "0:32"
         },
         {
-            "rank": "2",
+            "rank": "3",
             "name": "Kha ",
             "time": "0:42"
         },
         {
-            "rank": "3",
+            "rank": "4",
             "name": "PT ",
             "time": "0:51"
         },
         {
-            "rank": "4",
+            "rank": "5",
             "name": "TungDonut ",
             "time": "0:52"
         },
         {
-            "rank": "5",
+            "rank": "6",
             "name": "van ",
             "time": "1:24"
+        },
+        {
+            "rank": "7",
+            "name": "Megan ",
+            "time": "3:33"
         }
     ]
 }
