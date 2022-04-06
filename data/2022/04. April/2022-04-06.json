@@ -3,26 +3,41 @@
     "scores": [
         {
             "rank": "1",
+            "name": "PT ",
+            "time": "0:22"
+        },
+        {
+            "rank": "2",
+            "name": "Kha ",
+            "time": "0:27"
+        },
+        {
+            "rank": "3",
             "name": "T ",
             "time": "0:30"
         },
         {
-            "rank": "2",
+            "rank": "4",
             "name": "tonedew ",
             "time": "0:33"
         },
         {
-            "rank": "3",
+            "rank": "5",
+            "name": "Megan ",
+            "time": "0:35"
+        },
+        {
+            "rank": "6",
             "name": "TungDonut ",
             "time": "0:50"
         },
         {
-            "rank": "4",
+            "rank": "7",
             "name": "Zhenni ",
             "time": "0:51"
         },
         {
-            "rank": "5",
+            "rank": "8",
             "name": "Jacqui ",
             "time": "0:52"
         }
