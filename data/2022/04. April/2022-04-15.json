@@ -1,4 +1,15 @@
 {
     "date": "Friday, April 15, 2022",
-    "scores": []
+    "scores": [
+        {
+            "rank": "1",
+            "name": "Jacqui ",
+            "time": "0:37"
+        },
+        {
+            "rank": "2",
+            "name": "mcnugget ",
+            "time": "0:57"
+        }
+    ]
 }
