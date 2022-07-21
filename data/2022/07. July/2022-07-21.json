@@ -3,26 +3,31 @@
     "scores": [
         {
             "rank": "1",
+            "name": "PT ",
+            "time": "0:13"
+        },
+        {
+            "rank": "2",
             "name": "T ",
             "time": "0:26"
         },
         {
-            "rank": "2",
+            "rank": "3",
             "name": "Kha ",
             "time": "0:36"
         },
         {
-            "rank": "3",
+            "rank": "4",
             "name": "tonedew ",
             "time": "0:43"
         },
         {
-            "rank": "4",
+            "rank": "5",
             "name": "Megan ",
             "time": "0:45"
         },
         {
-            "rank": "5",
+            "rank": "6",
             "name": "Maithy ",
             "time": "1:01"
         }
