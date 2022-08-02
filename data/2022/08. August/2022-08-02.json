@@ -2,24 +2,34 @@
     "date": "Tuesday, August 2, 2022",
     "scores": [
         {
-            "rank": "1",
+            "rank": "2",
             "name": "Kha ",
             "time": "0:39"
         },
         {
-            "rank": "2",
+            "rank": "3",
             "name": "tonedew ",
             "time": "0:41"
         },
         {
-            "rank": "3",
+            "rank": "4",
             "name": "PT ",
             "time": "0:46"
         },
         {
-            "rank": "4",
+            "rank": "5",
+            "name": "T ",
+            "time": "0:55"
+        },
+        {
+            "rank": "6",
             "name": "Jacqui ",
             "time": "0:58"
+        },
+        {
+            "rank": "7",
+            "name": "Megan ",
+            "time": "1:41"
         }
     ]
 }
