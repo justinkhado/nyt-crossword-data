@@ -1,4 +1,10 @@
 {
     "date": "Tuesday, August 9, 2022",
-    "scores": []
+    "scores": [
+        {
+            "rank": "1",
+            "name": "Mikaela ",
+            "time": "2:07"
+        }
+    ]
 }
