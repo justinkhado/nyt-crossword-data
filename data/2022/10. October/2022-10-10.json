@@ -3,31 +3,36 @@
     "scores": [
         {
             "rank": "1",
+            "name": "PT ",
+            "time": "0:38"
+        },
+        {
+            "rank": "2",
             "name": "tonedew ",
             "time": "0:56"
         },
         {
-            "rank": "2",
+            "rank": "3",
             "name": "Megan ",
             "time": "1:07"
         },
         {
-            "rank": "3",
+            "rank": "4",
             "name": "Kha ",
             "time": "1:09"
         },
         {
-            "rank": "4",
+            "rank": "5",
             "name": "Mikaela ",
             "time": "1:41"
         },
         {
-            "rank": "5",
+            "rank": "6",
             "name": "Jacqui ",
             "time": "2:00"
         },
         {
-            "rank": "6",
+            "rank": "7",
             "name": "T ",
             "time": "2:31"
         }
