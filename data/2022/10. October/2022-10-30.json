@@ -3,11 +3,16 @@
     "scores": [
         {
             "rank": "1",
+            "name": "mcnugget ",
+            "time": "0:27"
+        },
+        {
+            "rank": "2",
             "name": "Jacqui ",
             "time": "0:39"
         },
         {
-            "rank": "2",
+            "rank": "3",
             "name": "Megan ",
             "time": "0:40"
         },
@@ -17,7 +22,7 @@
             "time": "0:40"
         },
         {
-            "rank": "3",
+            "rank": "4",
             "name": "Kha ",
             "time": "0:47"
         }
