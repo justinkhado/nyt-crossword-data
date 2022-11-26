@@ -8,28 +8,38 @@
         },
         {
             "rank": "2",
+            "name": "Zhenni ",
+            "time": "1:23"
+        },
+        {
+            "rank": "3",
             "name": "Megan ",
             "time": "1:31"
         },
         {
-            "rank": "3",
+            "rank": "4",
             "name": "mcnugget ",
             "time": "1:37"
         },
         {
-            "rank": "4",
+            "rank": "5",
             "name": "Kha ",
             "time": "1:49"
         },
         {
-            "rank": "5",
+            "rank": "6",
             "name": "Jacqui ",
             "time": "1:51"
         },
         {
-            "rank": "6",
+            "rank": "7",
             "name": "PT ",
             "time": "2:14"
+        },
+        {
+            "rank": "8",
+            "name": "T ",
+            "time": "2:42"
         }
     ]
 }
